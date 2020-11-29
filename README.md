@@ -124,3 +124,15 @@ If the table already exist, you can delete:
   - Find by city
   
       GET -> http://localhost:3000/trip/country/{country}/{city}
+
+### cURL
+  - POST
+  ```shell
+  curl --location --request POST 'http://localhost:3000/trip' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "country": "brasil",
+    "date": "2020-12-01T00:0045Z",
+    "city": "osasco",
+    "reason": "false"
+}'```
