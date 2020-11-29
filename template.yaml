@@ -3,7 +3,7 @@ Transform: AWS::Serverless-2016-10-31
 Description: >
     study-datalake
 
-    Rest API to manage a Data Lake of study links
+    Rest API to manage a Data Lake of Trip links
 
 Globals:
     Function:
@@ -11,7 +11,7 @@ Globals:
         MemorySize: 512
         Environment:
           Variables:
-            TABLE_NAME: !Ref StudyTable
+            TABLE_NAME: !Ref TripTable
             ENDPOINT_OVERRIDE: ""
 
 Resources:
@@ -69,7 +69,7 @@ Resources:
               RequestParameters:
                 - method.request.querystring.country
               
-  StudyTable:
+  TripTable:
     Type: AWS::DynamoDB::Table
     Properties:
       TableName: trip
@@ -115,3 +115,7 @@ Outputs:
     GetByCity:
       Description: "GetStudyRecordsByCity Lambda Function ARN"
       Value: !GetAtt GetByCity.Arn
+
+    GetTripsByCountryFunction:
+      Description: "GetTripsByCountryFunction Lambda Function ARN"
+      Value: !GetAtt GetTripsByCountryFunction.Arn
