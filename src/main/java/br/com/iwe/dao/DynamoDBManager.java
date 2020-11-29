@@ -15,9 +15,11 @@ public class DynamoDBManager {
 		final String endpoint = System.getenv("ENDPOINT_OVERRIDE");
 		
         if (endpoint != null && !endpoint.isEmpty()) {
+        	System.out.println("Entrou aqui no local");
         	EndpointConfiguration endpointConfiguration = new EndpointConfiguration(endpoint, "us-east-1");
         	ddb = AmazonDynamoDBClientBuilder.standard().withEndpointConfiguration(endpointConfiguration).build();
         } else {
+			System.out.println("Entrou aqui no ambiente noraml");
         	ddb = AmazonDynamoDBClientBuilder.defaultClient();
         }
 

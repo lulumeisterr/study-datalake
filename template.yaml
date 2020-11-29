@@ -16,109 +16,54 @@ Globals:
 
 Resources:
 
-  CreateStudyRecordFunction:
+  CreateTripRecordFunction:
     Type: AWS::Serverless::Function
     Properties:
      CodeUri: target/study-datalake-1.0.0-SNAPSHOT-jar-with-dependencies.jar
-     Handler: br.com.iwe.handler.CreateStudyRecord::handleRequest
+     Handler: br.com.iwe.handler.CreateTripRecord::handleRequest
      Runtime: java8
      Policies:
        - DynamoDBCrudPolicy:
-           TableName: !Ref StudyTable     
+           TableName: !Ref Trip
      Events:
        CreateStudyRecord:
          Type: Api
          Properties:
-           Path: /study
+           Path: /Trip
            Method: post
-           
-  GetStudyRecordsByPeriodFunction:
-    Type: AWS::Serverless::Function
-    Properties:
-     CodeUri: target/study-datalake-1.0.0-SNAPSHOT-jar-with-dependencies.jar
-     Handler: br.com.iwe.handler.GetStudyRecordsByPeriod::handleRequest
-     Runtime: java8
-     Policies:
-       - DynamoDBCrudPolicy:
-           TableName: !Ref StudyTable     
-     Events:
-       GetStudyRecordsByPeriod:
-         Type: Api
-         Properties:
-           Path: /study/{topic}/findByPeriod
-           Method: get
-           RequestParameters:
-              - method.request.querystring.starts
-              - method.request.querystring.ends
-              
-  GetStudyRecordsByTagFunction:
-    Type: AWS::Serverless::Function
-    Properties:
-     CodeUri: target/study-datalake-1.0.0-SNAPSHOT-jar-with-dependencies.jar
-     Handler: br.com.iwe.handler.GetStudyRecordsByTag::handleRequest
-     Runtime: java8
-     Policies:
-       - DynamoDBCrudPolicy:
-           TableName: !Ref StudyTable     
-     Events:
-       GetStudyRecordsByTag:
-         Type: Api
-         Properties:
-           Path: /study/{topic}/findByTag
-           Method: get
-           RequestParameters:
-              - method.request.querystring.tag
-
-  GetStudyRecordsByIsConsumedFunction:
-    Type: AWS::Serverless::Function
-    Properties:
-     CodeUri: target/study-datalake-1.0.0-SNAPSHOT-jar-with-dependencies.jar
-     Handler: br.com.iwe.handler.GetStudyRecordsByIsConsumed::handleRequest
-     Runtime: java8
-     Policies:
-       - DynamoDBCrudPolicy:
-           TableName: !Ref StudyTable
-     Events:
-       GetStudyRecordsByIsConsumed:
-         Type: Api
-         Properties:
-           Path: /study/{topic}/findByIsConsumed
-           Method: get
-           RequestParameters:
-              - method.request.querystring.isconsumed
               
   StudyTable:
     Type: AWS::DynamoDB::Table
     Properties:
-      TableName: study
+      TableName: trip
       AttributeDefinitions:
-        - AttributeName: topic
+        - AttributeName: country
           AttributeType: S
-        - AttributeName: dateTimeCreation
+        - AttributeName: city
           AttributeType: S
-        - AttributeName: tag
+        - AttributeName: date
           AttributeType: S
-        - AttributeName: consumed
+        - AttributeName: reason
           AttributeType: S            
       KeySchema:
-        - AttributeName: topic
+        - AttributeName: country
           KeyType: HASH
-        - AttributeName: dateTimeCreation
+        - AttributeName: date
           KeyType: RANGE
       LocalSecondaryIndexes: 
-        - IndexName: tagIndex
+        - IndexName: cityIndex
           KeySchema: 
-            - AttributeName: topic
+            - AttributeName: country
               KeyType: HASH
-            - AttributeName: tag
+            - AttributeName: city
               KeyType: RANGE
           Projection:
              ProjectionType: ALL 
-        - IndexName: consumedIndex
+        - IndexName: reasonIndex
           KeySchema: 
-            - AttributeName: topic
+            - AttributeName: country
               KeyType: HASH
-            - AttributeName: consumed
+            - AttributeName: reason
               KeyType: RANGE
           Projection:
              ProjectionType: ALL      
@@ -126,19 +71,6 @@ Resources:
 
 Outputs:
 
-    CreateStudyRecordFunction:
-      Description: "CreateStudyRecord Lambda Function ARN"
-      Value: !GetAtt CreateStudyRecordFunction.Arn
-      
-    GetStudyRecordsByPeriodFunction:
-      Description: "GetStudyRecordsByPeriod Lambda Function ARN"
-      Value: !GetAtt GetStudyRecordsByPeriodFunction.Arn
-      
-    GetStudyRecordsByTagFunction:
-      Description: "GetStudyRecordsByTag Lambda Function ARN"
-      Value: !GetAtt GetStudyRecordsByTagFunction.Arn
-      
-    GetStudyRecordsByIsConsumedFunction:
-      Description: "GetStudyRecordsByIsConsumed Lambda Function ARN"
-      Value: !GetAtt GetStudyRecordsByIsConsumedFunction.Arn      
-     
+    CreateTripRecordFunction:
+      Description: "CreateTripRecord Lambda Function ARN"
+      Value: !GetAtt CreateTripRecordFunction.Arn
