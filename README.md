@@ -1,4 +1,4 @@
-## AWS SAM Application for Managing Study Data Lake
+## AWS Serverless Cloud Native Java RESTful API
 
 Develop an API following the best practices in the set of
 principles of REST (State Representation Transfer) architecture.
