@@ -66,7 +66,7 @@ mvn install
 
 3. - Use this command to list the table        
       
-      aws dynamodb list-tables --endpoint-url http://localhost:8000
+            aws dynamodb list-tables --endpoint-url http://localhost:8000
 
 4. Create the DynamoDB table.
 
@@ -74,7 +74,7 @@ mvn install
       
    Execute this commands in the main folder:
 
-                  aws dynamodb create-table --cli-input-json file://dbDynamo.json --endpoint-url http://localhost:8000
+         aws dynamodb create-table --cli-input-json file://dbDynamo.json --endpoint-url http://localhost:8000
 
 5. If You want to create the table using the (http://localhost:8000/shell/#)
       
