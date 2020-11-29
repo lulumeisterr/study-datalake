@@ -1,9 +1,40 @@
 ## AWS SAM Application for Managing Study Data Lake
 
-This is a sample application to demonstrate how to build an application on AWS Serverless Envinronment using the
-AWS SAM, Amazon API Gateway, AWS Lambda and Amazon DynamoDB.
-It also uses the DynamoDBMapper ORM structure to map Study items in a DynamoDB table to a RESTful API for managing Studies.
+Develop an API following the best practices in the set of
+principles of REST (State Representation Transfer) architecture.
 
+The travel entity must contain the attributes: Country, City, Date (YYYY / MM / DD) and Reason.
+
+o Create a new trip record:
+- HTTP return code 201
+
+
+o Get trips by period:
+- Via query / travel parameter? Start = X and end = Y
+- Return 200 containing the results in a list.
+- Even when nothing is found, return an empty list and
+HTTP code 200.
+- Returns all fields of the entity in the body.
+
+
+o get trips by country:
+- Via parameter, inform the country / trips / <Country>
+- Return only one trip from the country.
+- HTTP Code 200 case found, body not found
+empty and HTTP Code 404.
+
+
+enjoy city trips:
+- Via Consulta inform the city and via Path parameter inform the
+country / trips / <Country> /? city ​​= <City>
+- The city search for being of type contains (like - LSI Sort
+Indexing key)
+- Return only one trip from the country.
+- HTTP Code 200 case found, body not found
+empty and HTTP Code 404.
+
+• No API source code should contain a README file with
+instructions for running an API locally and also on AWS.
 
 ## Requirements
 
@@ -27,8 +58,94 @@ mvn install
 ### Local development
 
 **Invoking function locally through local API Gateway**
-1. Start DynamoDB Local in a Docker container. `docker run -p 8000:8000 -v $(pwd)/local/dynamodb:/data/ amazon/dynamodb-local -jar DynamoDBLocal.jar -sharedDb -dbPath /data`
-2. Create the DynamoDB table. `aws dynamodb create-table --table-name study --attribute-definitions AttributeName=topic,AttributeType=S AttributeName=dateTimeCreation,AttributeType=S AttributeName=tag,AttributeType=S AttributeName=consumed,AttributeType=S --key-schema AttributeName=topic,KeyType=HASH AttributeName=dateTimeCreation,KeyType=RANGE --local-secondary-indexes 'IndexName=tagIndex,KeySchema=[{AttributeName=topic,KeyType=HASH},{AttributeName=tag,KeyType=RANGE}],Projection={ProjectionType=ALL}' 'IndexName=consumedIndex,KeySchema=[{AttributeName=topic,KeyType=HASH},{AttributeName=consumed,KeyType=RANGE}],Projection={ProjectionType=ALL}' --billing-mode PAY_PER_REQUEST --endpoint-url http://localhost:8000`
+
+1. Update AWS credentials
+      -> vi .aws/credentials
+
+2. Start DynamoDB Local in a Docker container. `docker run -p 8000:8000 -v $(pwd)/local/dynamodb:/data/ amazon/dynamodb-local -jar DynamoDBLocal.jar -sharedDb -dbPath /data`
+
+3. Create the DynamoDB table. 
+      -> https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_CreateTable.html
+      -> Commands
+
+aws dynamodb create-table --cli-input-json file://mydb.json --endpoint-url http://localhost:8000
+
+Create a jsonfile mydb:
+
+      {
+       "TableName": "Trip",
+       "BillingMode": "PAY_PER_REQUEST",
+       "KeySchema": [
+         {
+           "AttributeName": "Country",
+           "KeyType": "HASH"
+         },
+         {
+           "AttributeName": "Date",
+           "KeyType": "RANGE"
+         }
+       ],
+       "AttributeDefinitions": [
+         {
+           "AttributeName": "Country",
+           "AttributeType": "S"
+         },
+         {
+           "AttributeName": "City",
+           "AttributeType": "S"
+         },
+         {
+           "AttributeName": "Date",
+           "AttributeType": "S"
+         },
+         {
+           "AttributeName": "Reason",
+           "AttributeType": "S"
+         }
+       ],
+       "ProvisionedThroughput": {
+         "WriteCapacityUnits": 5,
+         "ReadCapacityUnits": 5
+       },
+       "LocalSecondaryIndexes": [
+         {
+           "IndexName": "cityIndex",
+           "KeySchema": [
+             {
+               "AttributeName": "Country",
+               "KeyType": "HASH"
+             },
+             {
+               "AttributeName": "City",
+               "KeyType": "RANGE"
+             }
+           ],
+           "Projection": { 
+                 "ProjectionType": "ALL"
+              }
+       },
+
+       {
+           "IndexName": "reasonIndex",
+           "KeySchema": [
+             {
+               "AttributeName": "Country",
+               "KeyType": "HASH"
+             },
+             {
+               "AttributeName": "Reason",
+               "KeyType": "RANGE"
+             }
+           ],
+           "Projection": { 
+                 "ProjectionType": "ALL"
+              }
+       }
+
+      ]
+
+      }
+
 
 If the table already exist, you can delete: `aws dynamodb delete-table --table-name study --endpoint-url http://localhost:8000`
 
