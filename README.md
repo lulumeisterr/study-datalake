@@ -1,9 +1,40 @@
 ## AWS SAM Application for Managing Study Data Lake
 
-This is a sample application to demonstrate how to build an application on AWS Serverless Envinronment using the
-AWS SAM, Amazon API Gateway, AWS Lambda and Amazon DynamoDB.
-It also uses the DynamoDBMapper ORM structure to map Study items in a DynamoDB table to a RESTful API for managing Studies.
+Develop an API following the best practices in the set of
+principles of REST (State Representation Transfer) architecture.
 
+The travel entity must contain the attributes: Country, City, Date (YYYY / MM / DD) and Reason.
+
+o Create a new trip record:
+- HTTP return code 201
+
+
+o Get trips by period:
+- Via query / travel parameter? Start = X and end = Y
+- Return 200 containing the results in a list.
+- Even when nothing is found, return an empty list and
+HTTP code 200.
+- Returns all fields of the entity in the body.
+
+
+o get trips by country:
+- Via parameter, inform the country / trips / <Country>
+- Return only one trip from the country.
+- HTTP Code 200 case found, body not found
+empty and HTTP Code 404.
+
+
+enjoy city trips:
+- Via Consulta inform the city and via Path parameter inform the
+country / trips / <Country> /? city ​​= <City>
+- The city search for being of type contains (like - LSI Sort
+Indexing key)
+- Return only one trip from the country.
+- HTTP Code 200 case found, body not found
+empty and HTTP Code 404.
+
+• No API source code should contain a README file with
+instructions for running an API locally and also on AWS.
 
 ## Requirements
 
