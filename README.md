@@ -58,8 +58,13 @@ mvn install
 ### Local development
 
 **Invoking function locally through local API Gateway**
-1. Start DynamoDB Local in a Docker container. `docker run -p 8000:8000 -v $(pwd)/local/dynamodb:/data/ amazon/dynamodb-local -jar DynamoDBLocal.jar -sharedDb -dbPath /data`
-2. Create the DynamoDB table. 
+
+1. Update AWS credentials
+      -> vi .aws/credentials
+
+2. Start DynamoDB Local in a Docker container. `docker run -p 8000:8000 -v $(pwd)/local/dynamodb:/data/ amazon/dynamodb-local -jar DynamoDBLocal.jar -sharedDb -dbPath /data`
+
+3. Create the DynamoDB table. 
       -> https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_CreateTable.html
       -> Commands
 
