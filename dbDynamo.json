@@ -7,7 +7,7 @@
       "KeyType": "HASH"
     },
     {
-      "AttributeName": "date",
+      "AttributeName": "dateTrip",
       "KeyType": "RANGE"
     }
   ],
@@ -21,7 +21,7 @@
       "AttributeType": "S"
     },
     {
-      "AttributeName": "date",
+      "AttributeName": "dateTrip",
       "AttributeType": "S"
     },
     {

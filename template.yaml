@@ -48,17 +48,17 @@ Resources:
   GetByCityFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: target/study-datalake-1.0.0-SNAPSHOT-jar-with-dependencies.jar
-      Handler: br.com.iwe.handler.GetTripsByCity::handleRequest
+      CodeUri: ./target/fiap-serverless-architecture-aws-trip-1.0.0-SNAPSHOT-jar-with-dependencies.jar
+      Handler: br.com.rws.handler.GetTripsByCity::handleRequest
       Runtime: java8
       Policies:
         - DynamoDBCrudPolicy:
             TableName: !Ref TripTable
       Events:
-        GetTripsByCity:
+        CreateTripRecord:
           Type: Api
           Properties:
-            Path: /trip/{country}
+            Path: /trip/{country}/findByCity
             Method: get
             RequestParameters:
               - method.request.querystring.city
@@ -91,14 +91,14 @@ Resources:
           AttributeType: S
         - AttributeName: city
           AttributeType: S
-        - AttributeName: date
+        - AttributeName: dateTrip
           AttributeType: S
         - AttributeName: reason
           AttributeType: S
       KeySchema:
         - AttributeName: country
           KeyType: HASH
-        - AttributeName: date
+        - AttributeName: dateTrip
           KeyType: RANGE
       LocalSecondaryIndexes:
         - IndexName: cityIndex
