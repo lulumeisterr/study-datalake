@@ -60,21 +60,31 @@ mvn install
 **Invoking function locally through local API Gateway**
 
 1. Update AWS credentials
-      -> vi .aws/credentials
+      vi .aws/credentials
 
 2. Start DynamoDB Local in a Docker container. `docker run -p 8000:8000 -v $(pwd)/local/dynamodb:/data/ amazon/dynamodb-local -jar DynamoDBLocal.jar -sharedDb -dbPath /data`
 
-3. Create the DynamoDB table. 
+3. - Use this command to list the table        
+      
+            aws dynamodb list-tables --endpoint-url http://localhost:8000
 
-            - https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_CreateTable.html
+4. Create the DynamoDB table.
 
-            - Execute this commands in the main folder
+   Documentation: https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_CreateTable.html
+      
+   Execute this commands in the main folder:
 
-            - aws dynamodb create-table --cli-input-json file://dbDynamo.json --endpoint-url http://localhost:8000
+         aws dynamodb create-table --cli-input-json file://dbDynamo.json --endpoint-url http://localhost:8000
 
+5. If You want to create the table using the (http://localhost:8000/shell/#)
+      
+      - past file dbDynamo.json and run
+                  
+
+      
 If the table already exist, you can delete: `aws dynamodb delete-table --table-name study --endpoint-url http://localhost:8000`
 
-3. Start the SAM local API.
+6. Start the SAM local API.
  - On a Mac: `sam local start-api --env-vars src/test/resources/test_environment_mac.json`
  - On Windows: `sam local start-api --env-vars src/test/resources/test_environment_windows.json`
  - On Linux: `sam local start-api --env-vars src/test/resources/test_environment_linux.json`
