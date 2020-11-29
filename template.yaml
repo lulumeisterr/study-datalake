@@ -26,7 +26,7 @@ Resources:
        - DynamoDBCrudPolicy:
            TableName: !Ref TripTable
      Events:
-       CreateStudyRecord:
+       CreateTripRecord:
          Type: Api
          Properties:
            Path: /trip
@@ -42,7 +42,7 @@ Resources:
         - DynamoDBCrudPolicy:
             TableName: !Ref TripTable
       Events:
-        CreateTripRecord:
+        GetByCity:
           Type: Api
           Properties:
             Path: /trip/{country}/{city}
@@ -113,5 +113,5 @@ Outputs:
       Value: !GetAtt CreateTripRecordFunction.Arn
 
     GetByCity:
-      Description: "GetStudyRecordsByCity Lambda Function ARN"
+      Description: "GetTripRecordsByCity Lambda Function ARN"
       Value: !GetAtt GetByCity.Arn
