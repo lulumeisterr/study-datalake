@@ -37,11 +37,11 @@ public class TripRepository {
 
 		final DynamoDBQueryExpression<Trip> queryExpression = new DynamoDBQueryExpression<Trip>()
 				.withIndexName("cityIndex").withConsistentRead(false)
-				.withKeyConditionExpression("country = :val1 and city=:val2").withExpressionAttributeValues(eav);
+				.withKeyConditionExpression("country = :val1 and city = :val2").withExpressionAttributeValues(eav);
 
-		final List<Trip> studies = mapper.query(Trip.class, queryExpression);
+		final List<Trip> trips = mapper.query(Trip.class, queryExpression);
 
-		return studies;
+		return trips;
 	}
 
 	public List<Trip> findByCountry(final String country) {

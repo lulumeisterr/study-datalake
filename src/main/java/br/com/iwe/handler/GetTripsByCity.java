@@ -21,13 +21,13 @@ public class GetTripsByCity implements RequestHandler<HandlerRequest, HandlerRes
 
         context.getLogger().log("Searching for registered trip for " + country + " and city equals " + city);
 
-        final List<Trip> studies = this.repository.findByCity(country, city);
+        final List<Trip> citys = this.repository.findByCity(country, city);
 
-        if (studies == null || studies.isEmpty()) {
+        if (citys == null || citys.isEmpty()) {
             return HandlerResponse.builder().setStatusCode(404).build();
         }
 
-        return HandlerResponse.builder().setStatusCode(200).setObjectBody(studies).build();
+        return HandlerResponse.builder().setStatusCode(200).setObjectBody(citys).build();
 
     }
 }

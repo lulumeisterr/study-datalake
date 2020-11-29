@@ -13,7 +13,7 @@ public class Trip {
 	@DynamoDBIndexRangeKey(attributeName = "city", localSecondaryIndexName = "cityIndex")
 	private String city;
 
-	@DynamoDBAttribute(attributeName = "reason")
+	@DynamoDBIndexRangeKey(attributeName = "reason", localSecondaryIndexName = "reasonIndex")
 	private String reason;
 
 	public Trip (){

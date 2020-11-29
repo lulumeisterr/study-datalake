@@ -45,24 +45,6 @@ Resources:
             Path: /trip/country/{country}
             Method: get
 
-  GetByCityFunction:
-    Type: AWS::Serverless::Function
-    Properties:
-      CodeUri: ./target/fiap-serverless-architecture-aws-trip-1.0.0-SNAPSHOT-jar-with-dependencies.jar
-      Handler: br.com.rws.handler.GetTripsByCity::handleRequest
-      Runtime: java8
-      Policies:
-        - DynamoDBCrudPolicy:
-            TableName: !Ref TripTable
-      Events:
-        CreateTripRecord:
-          Type: Api
-          Properties:
-            Path: /trip/{country}/findByCity
-            Method: get
-            RequestParameters:
-              - method.request.querystring.city
-
   GetTripsByPeriodFunction:
     Type: AWS::Serverless::Function
     Properties:
@@ -81,6 +63,24 @@ Resources:
             RequestParameters:
               - method.request.querystring.start
               - method.request.querystring.end
+
+  GetByCityFunction:
+      Type: AWS::Serverless::Function
+      Properties:
+        CodeUri: target/study-datalake-1.0.0-SNAPSHOT-jar-with-dependencies.jar
+        Handler: br.com.iwe.handler.GetTripsByCity::handleRequest
+        Runtime: java8
+        Policies:
+          - DynamoDBCrudPolicy:
+              TableName: !Ref TripTable
+        Events:
+          CreateTripRecord:
+            Type: Api
+            Properties:
+              Path: /trip/{country}/findByCity
+              Method: get
+              RequestParameters:
+                - method.request.querystring.city
 
   TripTable:
     Type: AWS::DynamoDB::Table
