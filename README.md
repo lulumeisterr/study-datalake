@@ -73,7 +73,8 @@ mvn install
    Documentation: https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_CreateTable.html
       
    Execute this commands in the main folder:
-     aws dynamodb create-table --cli-input-json file://dbDynamo.json --endpoint-url http://localhost:8000
+
+                  aws dynamodb create-table --cli-input-json file://dbDynamo.json --endpoint-url http://localhost:8000
 
 5. If You want to create the table using the (http://localhost:8000/shell/#)
       
