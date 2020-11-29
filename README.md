@@ -62,13 +62,19 @@ mvn install
 1. Update AWS credentials
       vi .aws/credentials
 
-2. Start DynamoDB Local in a Docker container. `docker run -p 8000:8000 -v $(pwd)/local/dynamodb:/data/ amazon/dynamodb-local -jar DynamoDBLocal.jar -sharedDb -dbPath /data`
+#### Go to project local directory where is this repository:
 
-3. - Use this command to list the table        
+1. Start DynamoDB Local in a Docker container.
+
+```docker run -p 8000:8000 -v $(pwd)/local/dynamodb:/data/ amazon/dynamodb-local -jar DynamoDBLocal.jar -sharedDb -dbPath /data```
+
+1. Set permissions for DynamoDB Local in a Docker container. `chmod 777 -R $(pwd)/local/dynamodb`
+
+1. - Use this command to list the table        
       
             aws dynamodb list-tables --endpoint-url http://localhost:8000
 
-4. Create the DynamoDB table.
+1. Create the DynamoDB table.
 
    Documentation: https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_CreateTable.html
       
