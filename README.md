@@ -87,7 +87,8 @@ mvn install
       - past file dbDynamo.json and run
                   
       
-If the table already exist, you can delete: `aws dynamodb delete-table --table-name study --endpoint-url http://localhost:8000`
+If the table already exist, you can delete: 
+      `aws dynamodb delete-table --table-name trip --endpoint-url http://localhost:8000`
 
 6. Start the SAM local API.
  - On a Mac: `sam local start-api --env-vars src/test/resources/test_environment_mac.json`
