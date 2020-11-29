@@ -24,13 +24,50 @@ Resources:
      Runtime: java8
      Policies:
        - DynamoDBCrudPolicy:
-           TableName: !Ref Trip
+           TableName: !Ref TripTable
      Events:
        CreateStudyRecord:
          Type: Api
          Properties:
-           Path: /Trip
+           Path: /trip
            Method: post
+
+  GetByCity:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: target/study-datalake-1.0.0-SNAPSHOT-jar-with-dependencies.jar
+      Handler: br.com.iwe.handler.GetByCity::handleRequest
+      Runtime: java8
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref TripTable
+      Events:
+        CreateTripRecord:
+          Type: Api
+          Properties:
+            Path: /trip/{country}/{city}
+            Method: get
+            RequestParameters:
+              - method.request.querystring.country
+              - method.request.querystring.city
+
+    GetTripsByCountryFunction:
+      Type: AWS::Serverless::Function
+      Properties:
+        CodeUri: target/study-datalake-1.0.0-SNAPSHOT-jar-with-dependencies.jar
+        Handler: br.com.rws.handler.GetTripsByCountry::handleRequest
+        Runtime: java8
+        Policies:
+          - DynamoDBCrudPolicy:
+              TableName: !Ref TripTable
+        Events:
+          CreateTripRecord:
+            Type: Api
+            Properties:
+              Path: /trip/country/{country}
+              Method: get
+              RequestParameters:
+                - method.request.querystring.country
               
   StudyTable:
     Type: AWS::DynamoDB::Table
@@ -74,3 +111,7 @@ Outputs:
     CreateTripRecordFunction:
       Description: "CreateTripRecord Lambda Function ARN"
       Value: !GetAtt CreateTripRecordFunction.Arn
+
+    GetByCity:
+      Description: "GetStudyRecordsByCity Lambda Function ARN"
+      Value: !GetAtt GetByCity.Arn
