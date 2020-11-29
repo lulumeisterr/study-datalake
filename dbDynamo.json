@@ -1,0 +1,73 @@
+{
+  "TableName": "trip",
+  "BillingMode": "PAY_PER_REQUEST",
+  "KeySchema": [
+    {
+      "AttributeName": "country",
+      "KeyType": "HASH"
+    },
+    {
+      "AttributeName": "date",
+      "KeyType": "RANGE"
+    }
+  ],
+  "AttributeDefinitions": [
+    {
+      "AttributeName": "country",
+      "AttributeType": "S"
+    },
+    {
+      "AttributeName": "city",
+      "AttributeType": "S"
+    },
+    {
+      "AttributeName": "date",
+      "AttributeType": "S"
+    },
+    {
+      "AttributeName": "reason",
+      "AttributeType": "S"
+    }
+  ],
+  "ProvisionedThroughput": {
+    "WriteCapacityUnits": 5,
+    "ReadCapacityUnits": 5
+  },
+  "LocalSecondaryIndexes": [
+    {
+      "IndexName": "cityIndex",
+      "KeySchema": [
+        {
+          "AttributeName": "country",
+          "KeyType": "HASH"
+        },
+        {
+          "AttributeName": "city",
+          "KeyType": "RANGE"
+        }
+      ],
+      "Projection": { 
+            "ProjectionType": "ALL"
+         }
+  },
+
+  {
+      "IndexName": "reasonIndex",
+      "KeySchema": [
+        {
+          "AttributeName": "country",
+          "KeyType": "HASH"
+        },
+        {
+          "AttributeName": "reason",
+          "KeyType": "RANGE"
+        }
+      ],
+      "Projection": { 
+            "ProjectionType": "ALL"
+         }
+  }
+
+]
+
+}
