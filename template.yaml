@@ -1,74 +1,87 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Description: >
-    study-datalake
-
-    Rest API to manage a Data Lake of study links
-
+  Rest API to manage a Data Lake of trip links
 Globals:
-    Function:
-        Timeout: 20
-        MemorySize: 512
-        Environment:
-          Variables:
-            TABLE_NAME: !Ref TripTable
-            ENDPOINT_OVERRIDE: ""
+  Function:
+    Timeout: 50
+    MemorySize: 512
+    Environment:
+      Variables:
+        TABLE_NAME: !Ref TripTable
+        ENDPOINT_OVERRIDE: ""
 
 Resources:
 
   CreateTripRecordFunction:
     Type: AWS::Serverless::Function
     Properties:
-     CodeUri: target/study-datalake-1.0.0-SNAPSHOT-jar-with-dependencies.jar
-     Handler: br.com.iwe.handler.CreateTripRecord::handleRequest
-     Runtime: java8
-     Policies:
-       - DynamoDBCrudPolicy:
-           TableName: !Ref TripTable
-     Events:
-       CreateTripRecord:
-         Type: Api
-         Properties:
-           Path: /trip
-           Method: post
-
-  GetByCity:
-    Type: AWS::Serverless::Function
-    Properties:
       CodeUri: target/study-datalake-1.0.0-SNAPSHOT-jar-with-dependencies.jar
-      Handler: br.com.iwe.handler.GetByCity::handleRequest
+      Handler: br.com.iwe.handler.CreateTripRecord::handleRequest
       Runtime: java8
       Policies:
         - DynamoDBCrudPolicy:
             TableName: !Ref TripTable
       Events:
-        GetByCity:
+        CreateTripRecord:
           Type: Api
           Properties:
-            Path: /trip/{country}/{city}
+            Path: /trip
+            Method: post
+
+  GetTripsByCountryFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: target/study-datalake-1.0.0-SNAPSHOT-jar-with-dependencies.jar
+      Handler: br.com.iwe.handler.GetTripsByCountry::handleRequest
+      Runtime: java8
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref TripTable
+      Events:
+        GetTripsByCountry:
+          Type: Api
+          Properties:
+            Path: /trip/country/{country}
+            Method: get
+
+  GetByCityFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: target/study-datalake-1.0.0-SNAPSHOT-jar-with-dependencies.jar
+      Handler: br.com.iwe.handler.GetTripsByCity::handleRequest
+      Runtime: java8
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref TripTable
+      Events:
+        GetTripsByCity:
+          Type: Api
+          Properties:
+            Path: /trip/{country}
             Method: get
             RequestParameters:
-              - method.request.querystring.country
               - method.request.querystring.city
 
-    GetTripsByCountryFunction:
-      Type: AWS::Serverless::Function
-      Properties:
-        CodeUri: target/study-datalake-1.0.0-SNAPSHOT-jar-with-dependencies.jar
-        Handler: br.com.rws.handler.GetTripsByCountry::handleRequest
-        Runtime: java8
-        Policies:
-          - DynamoDBCrudPolicy:
-              TableName: !Ref TripTable
-        Events:
-          CreateTripRecord:
-            Type: Api
-            Properties:
-              Path: /trip/country/{country}
-              Method: get
-              RequestParameters:
-                - method.request.querystring.country
-              
+  GetTripsByPeriodFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: target/study-datalake-1.0.0-SNAPSHOT-jar-with-dependencies.jar
+      Handler: br.com.iwe.handler.GetTripsByPeriod::handleRequest
+      Runtime: java8
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref TripTable
+      Events:
+        GetTripsByPeriod:
+          Type: Api
+          Properties:
+            Path: /trip/{country}/period
+            Method: get
+            RequestParameters:
+              - method.request.querystring.start
+              - method.request.querystring.end
+
   TripTable:
     Type: AWS::DynamoDB::Table
     Properties:
@@ -81,37 +94,45 @@ Resources:
         - AttributeName: date
           AttributeType: S
         - AttributeName: reason
-          AttributeType: S            
+          AttributeType: S
       KeySchema:
         - AttributeName: country
           KeyType: HASH
         - AttributeName: date
           KeyType: RANGE
-      LocalSecondaryIndexes: 
+      LocalSecondaryIndexes:
         - IndexName: cityIndex
-          KeySchema: 
+          KeySchema:
             - AttributeName: country
               KeyType: HASH
             - AttributeName: city
               KeyType: RANGE
           Projection:
-             ProjectionType: ALL 
+            ProjectionType: ALL
         - IndexName: reasonIndex
-          KeySchema: 
+          KeySchema:
             - AttributeName: country
               KeyType: HASH
             - AttributeName: reason
               KeyType: RANGE
           Projection:
-             ProjectionType: ALL      
-      BillingMode: PAY_PER_REQUEST              
+            ProjectionType: ALL
+      BillingMode: PAY_PER_REQUEST
 
 Outputs:
 
-    CreateTripRecordFunction:
-      Description: "CreateTripRecord Lambda Function ARN"
-      Value: !GetAtt CreateTripRecordFunction.Arn
+  CreateTripRecordFunction:
+    Description: "CreateTripRecord Lambda Function ARN"
+    Value: !GetAtt CreateTripRecordFunction.Arn
 
-    GetByCity:
-      Description: "GetTripRecordsByCity Lambda Function ARN"
-      Value: !GetAtt GetByCity.Arn
+  GetByCityFunction:
+    Description: "GetTripsByCity Lambda Function ARN"
+    Value: !GetAtt GetByCityFunction.Arn
+
+  GetTripsByCountryFunction:
+    Description: "GetTripsByCountry Lambda Function ARN"
+    Value: !GetAtt GetTripsByCountryFunction.Arn
+
+  GetTripsByPeriodFunction:
+    Description: "GetTripsByPeriod Lambda Function ARN"
+    Value: !GetAtt GetTripsByPeriodFunction.Arn

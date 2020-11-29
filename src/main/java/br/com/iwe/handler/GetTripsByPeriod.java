@@ -1,5 +1,4 @@
 package br.com.iwe.handler;
-
 import br.com.iwe.dao.TripRepository;
 import br.com.iwe.model.HandlerRequest;
 import br.com.iwe.model.HandlerResponse;
@@ -9,7 +8,7 @@ import com.amazonaws.services.lambda.runtime.RequestHandler;
 
 import java.util.List;
 
-public class GetTripsByCountry implements RequestHandler<HandlerRequest, HandlerResponse> {
+public class GetTripsByPeriod implements RequestHandler<HandlerRequest, HandlerResponse> {
 
     private final TripRepository repository = new TripRepository();
 
@@ -17,13 +16,15 @@ public class GetTripsByCountry implements RequestHandler<HandlerRequest, Handler
     public HandlerResponse handleRequest(HandlerRequest request, Context context) {
 
         final String country = request.getPathParameters().get("country");
+        final String start = request.getQueryStringParameters().get("start");
+        final String end = request.getQueryStringParameters().get("end");
 
-        context.getLogger().log("Searching for registered trips for " + country);
+        context.getLogger().log("Searching for registered trips starts  " + start + " and ends " + end);
 
         try {
-            final List<Trip> trips = this.repository.findByCountry(country);
+            final List<Trip> trips = this.repository.findByPeriod(country, start, end);
             if (trips == null || trips.isEmpty()) {
-                return HandlerResponse.builder().setStatusCode(404).build();
+                return HandlerResponse.builder().setStatusCode(200).build();
             }
             return HandlerResponse.builder().setStatusCode(200).setObjectBody(trips).build();
         } catch (Exception e) {
@@ -31,4 +32,5 @@ public class GetTripsByCountry implements RequestHandler<HandlerRequest, Handler
         }
         return null;
     }
+
 }

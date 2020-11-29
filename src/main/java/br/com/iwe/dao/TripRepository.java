@@ -58,6 +58,22 @@ public class TripRepository {
 
 	}
 
+	public List<Trip> findByPeriod(final String country, final String start, final String end) {
+
+		final Map<String, AttributeValue> eav = new HashMap<String, AttributeValue>();
+		eav.put(":val1", new AttributeValue().withS(country));
+		eav.put(":val2", new AttributeValue().withS(start));
+		eav.put(":val3", new AttributeValue().withS(end));
+
+		final DynamoDBQueryExpression<Trip> queryExpression = new DynamoDBQueryExpression<Trip>()
+				.withKeyConditionExpression("country = :val1 and dateTrip between :val2 and :val3")
+				.withExpressionAttributeValues(eav);
+
+		final List<Trip> trips = mapper.query(Trip.class, queryExpression);
+
+		return trips;
+	}
+
 
 
 }
