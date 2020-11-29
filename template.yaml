@@ -11,7 +11,7 @@ Globals:
         MemorySize: 512
         Environment:
           Variables:
-            TABLE_NAME: !Ref StudyTable
+            TABLE_NAME: !Ref TripTable
             ENDPOINT_OVERRIDE: ""
 
 Resources:
@@ -69,7 +69,7 @@ Resources:
               RequestParameters:
                 - method.request.querystring.country
               
-  StudyTable:
+  TripTable:
     Type: AWS::DynamoDB::Table
     Properties:
       TableName: trip
