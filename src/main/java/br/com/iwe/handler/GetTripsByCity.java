@@ -9,7 +9,7 @@ import com.amazonaws.services.lambda.runtime.RequestHandler;
 
 import java.util.List;
 
-public class GetByCity implements RequestHandler<HandlerRequest, HandlerResponse> {
+public class GetTripsByCity implements RequestHandler<HandlerRequest, HandlerResponse> {
 
     private final TripRepository repository = new TripRepository();
 
@@ -17,7 +17,7 @@ public class GetByCity implements RequestHandler<HandlerRequest, HandlerResponse
     public HandlerResponse handleRequest(HandlerRequest request, Context context) {
 
         final String country = request.getPathParameters().get("country");
-        final String city = request.getPathParameters().get("city");
+        final String city = request.getQueryStringParameters().get("city");
 
         context.getLogger().log("Searching for registered trip for " + country + " and city equals " + city);
 

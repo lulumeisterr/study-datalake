@@ -7,10 +7,10 @@ public class Trip {
 
 	@DynamoDBHashKey(attributeName = "country")
 	private String country;
-	@DynamoDBRangeKey(attributeName = "date")
-	private String date;
+	@DynamoDBRangeKey(attributeName = "dateTrip")
+	private String dateTrip;
 
-	@DynamoDBAttribute(attributeName = "city")
+	@DynamoDBIndexRangeKey(attributeName = "city", localSecondaryIndexName = "cityIndex")
 	private String city;
 
 	@DynamoDBAttribute(attributeName = "reason")
@@ -20,12 +20,13 @@ public class Trip {
 
 	}
 
-	public Trip(String country, String date, String city, String reason) {
+	public Trip(String country, String dateTrip, String city, String reason) {
 		this.country = country;
-		this.date = date;
+		this.dateTrip = dateTrip;
 		this.city = city;
 		this.reason = reason;
 	}
+
 
 	public String getCountry() {
 		return country;
@@ -35,12 +36,12 @@ public class Trip {
 		this.country = country;
 	}
 
-	public String getDate() {
-		return date;
+	public String getDateTrip() {
+		return dateTrip;
 	}
 
-	public void setDate(String date) {
-		this.date = date;
+	public void setDateTrip(String dateTrip) {
+		this.dateTrip = dateTrip;
 	}
 
 	public String getCity() {
