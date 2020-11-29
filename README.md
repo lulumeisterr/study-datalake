@@ -112,7 +112,7 @@ If the table already exist, you can delete: `aws dynamodb delete-table --table-n
                      }
       
   - Get a country
-      GET -> http://localhost:3000/trip/{country}/
+      GET -> http://localhost:3000/trip/country/{nameofCountry}
       
   - Find by city
   
