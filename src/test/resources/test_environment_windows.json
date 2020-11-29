@@ -1,18 +1,18 @@
 {
 	"CreateTripRecordFunction": {
-		"ENDPOINT_OVERRIDE": "http://docker.for.windows.localhost:8000",
-		"TABLE_NAME": "study"
+		"ENDPOINT_OVERRIDE": "http://host.docker.internal:8000",
+		"TABLE_NAME": "trip"
 	},
 	"GetByCityFunction": {
-		"ENDPOINT_OVERRIDE": "http://docker.for.windows.localhost:8000",
-		"TABLE_NAME": "study"
+		"ENDPOINT_OVERRIDE": "http://host.docker.internal:8000",
+		"TABLE_NAME": "trip"
 	},
 	"GetTripsByCountryFunction": {
-		"ENDPOINT_OVERRIDE": "http://docker.for.windows.localhost:8000",
-		"TABLE_NAME": "study"
+		"ENDPOINT_OVERRIDE": "http://host.docker.internal:8000",
+		"TABLE_NAME": "trip"
 	},
 	"GetTripsByPeriodFunction": {
-		"ENDPOINT_OVERRIDE": "http://docker.for.windows.localhost:8000",
-		"TABLE_NAME": "study"
+		"ENDPOINT_OVERRIDE": "http://host.docker.internal:8000",
+		"TABLE_NAME": "trip"
 	}
 }
