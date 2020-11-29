@@ -70,7 +70,7 @@ mvn install
 
 1. Set permissions for DynamoDB Local in a Docker container. `chmod 777 -R $(pwd)/local/dynamodb`
 
-1. - Use this command to list the table        
+1. - Use this command to list the table
       
             aws dynamodb list-tables --endpoint-url http://localhost:8000
 
@@ -131,8 +131,18 @@ If the table already exist, you can delete:
   curl --location --request POST 'http://localhost:3000/trip' \
 --header 'Content-Type: application/json' \
 --data-raw '{
-    "country": "brasil",
+    "country": "Brasil",
     "date": "2020-12-01T00:0045Z",
-    "city": "osasco",
+    "city": "Osasco",
     "reason": "false"
-}'```
+}'
+
+  curl --location --request POST 'http://localhost:3000/trip' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "country": "Alemanha",
+    "date": "2020-12-01T00:0045Z",
+    "city": "Berlin",
+    "reason": "false"
+}'
+```
