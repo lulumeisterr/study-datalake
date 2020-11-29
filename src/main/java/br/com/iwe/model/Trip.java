@@ -1,11 +1,8 @@
 package br.com.iwe.model;
 
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBIndexRangeKey;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBRangeKey;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
+import com.amazonaws.services.dynamodbv2.datamodeling.*;
 
-@DynamoDBTable(tableName = "Trip")
+@DynamoDBTable(tableName = "trip")
 public class Trip {
 
 	@DynamoDBHashKey(attributeName = "country")
@@ -13,10 +10,10 @@ public class Trip {
 	@DynamoDBRangeKey(attributeName = "date")
 	private String date;
 
-	@DynamoDBIndexRangeKey(attributeName = "city", localSecondaryIndexName = "cityIndex")
+	@DynamoDBAttribute(attributeName = "city")
 	private String city;
 
-	@DynamoDBIndexRangeKey(attributeName = "reason", localSecondaryIndexName = "reasonIndex")
+	@DynamoDBAttribute(attributeName = "reason")
 	private String reason;
 
 	public Trip (){
