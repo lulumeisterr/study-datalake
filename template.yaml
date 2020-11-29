@@ -16,6 +16,42 @@ Globals:
 
 Resources:
 
+  GetTripsByCountry:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: target/study-datalake-1.0.0-SNAPSHOT-jar-with-dependencies.jar
+      Handler: br.com.rws.handler.GetTripsByCountry::handleRequest
+      Runtime: java8
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref TripTable
+      Events:
+        CreateTripRecord:
+          Type: Api
+          Properties:
+            Path: /trip/country/{country}
+            Method: get
+            RequestParameters:
+              - method.request.querystring.country
+
+  GetTripsByPeriod:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: target/study-datalake-1.0.0-SNAPSHOT-jar-with-dependencies.jar
+      Handler: br.com.iwe.handler.GetTripsByPeriod::handleRequest
+      Runtime: java8
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref TripTable
+      Events:
+        GetTripsByPeriod:
+          Type: Api
+          Properties:
+            Path: /trips/{country}/period
+            Method: get
+            RequestParameters:
+              - method.request.querystring.start
+              - method.request.querystring.end
   CreateTripRecordFunction:
     Type: AWS::Serverless::Function
     Properties:
@@ -50,25 +86,6 @@ Resources:
             RequestParameters:
               - method.request.querystring.country
               - method.request.querystring.city
-
-    GetTripsByCountryFunction:
-      Type: AWS::Serverless::Function
-      Properties:
-        CodeUri: target/study-datalake-1.0.0-SNAPSHOT-jar-with-dependencies.jar
-        Handler: br.com.rws.handler.GetTripsByCountry::handleRequest
-        Runtime: java8
-        Policies:
-          - DynamoDBCrudPolicy:
-              TableName: !Ref TripTable
-        Events:
-          CreateTripRecord:
-            Type: Api
-            Properties:
-              Path: /trip/country/{country}
-              Method: get
-              RequestParameters:
-                - method.request.querystring.country
-              
   TripTable:
     Type: AWS::DynamoDB::Table
     Properties:
@@ -116,6 +133,10 @@ Outputs:
       Description: "GetStudyRecordsByCity Lambda Function ARN"
       Value: !GetAtt GetByCity.Arn
 
-    GetTripsByCountryFunction:
-      Description: "GetTripsByCountryFunction Lambda Function ARN"
-      Value: !GetAtt GetTripsByCountryFunction.Arn
+    GetTripsByCountry:
+      Description: "GetTripsByCountry Lambda Function ARN"
+      Value: !GetAtt GetTripsByCountry.Arn
+
+    GetTripsByPeriod:
+      Description: "GetTripsByPeriod Lambda Function ARN"
+      Value: !GetAtt GetTripsByPeriod.Arn

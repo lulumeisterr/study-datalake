@@ -10,5 +10,9 @@
 	"GetTripsByCountry": {
 		"ENDPOINT_OVERRIDE": "http://docker.for.windows.localhost:8000",
 		"TABLE_NAME": "study"
+	},
+	"GetTripsByPeriod": {
+		"ENDPOINT_OVERRIDE": "http://docker.for.windows.localhost:8000",
+		"TABLE_NAME": "trip"
 	}
 }

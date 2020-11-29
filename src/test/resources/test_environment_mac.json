@@ -3,13 +3,15 @@
 		"ENDPOINT_OVERRIDE": "http://docker.for.mac.localhost:8000",
 		"TABLE_NAME": "trip"
 	},
-
 	"GetByCity": {
 		"ENDPOINT_OVERRIDE": "http://docker.for.mac.localhost:8000",
 		"TABLE_NAME": "trip"
 	},
-
 	"GetTripsByCountry": {
+		"ENDPOINT_OVERRIDE": "http://docker.for.mac.localhost:8000",
+		"TABLE_NAME": "trip"
+	},
+	"GetTripsByPeriod": {
 		"ENDPOINT_OVERRIDE": "http://docker.for.mac.localhost:8000",
 		"TABLE_NAME": "trip"
 	}

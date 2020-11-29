@@ -10,5 +10,9 @@
 	"GetTripsByCountry": {
 		"ENDPOINT_OVERRIDE": "http://127.0.0.1:8000",
 		"TABLE_NAME": "trip"
+	},
+	"GetTripsByPeriod": {
+		"ENDPOINT_OVERRIDE": "http://127.0.0.1:8000",
+		"TABLE_NAME": "trip"
 	}
 }
