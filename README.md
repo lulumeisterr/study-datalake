@@ -80,7 +80,6 @@ mvn install
       
       - past file dbDynamo.json and run
                   
-
       
 If the table already exist, you can delete: `aws dynamodb delete-table --table-name study --endpoint-url http://localhost:8000`
 
@@ -90,3 +89,25 @@ If the table already exist, you can delete: `aws dynamodb delete-table --table-n
  - On Linux: `sam local start-api --env-vars src/test/resources/test_environment_linux.json`
  
  OBS:  If you already have the container locally (in your case the java8), then you can use --skip-pull-image to remove the download
+
+
+7. Urls
+
+  - Create a trip
+      POST -> http://localhost:3000/trip/
+            
+            Body :
+            
+                    {
+                      "country": "brasil",
+                      "date": "2020-12-01T00:0045Z",
+                      "city": "osasco",
+                      "reason": "false"
+                     }
+      
+  - Get a country
+      GET -> http://localhost:3000/trip/{country}/
+      
+  - Find by city
+  
+      GET -> http://localhost:3000/trip/country/{country}/{cidy}
