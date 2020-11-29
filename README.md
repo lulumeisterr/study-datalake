@@ -80,7 +80,7 @@ mvn install
       
    You can use :
    
-       aws dynamodb create-table --table-name trip --attribute-definitions AttributeName=country,AttributeType=S AttributeName=date,AttributeType=S AttributeName=city,AttributeType=S AttributeName=reason,AttributeType=S --key-schema AttributeName=country,KeyType=HASH AttributeName=date,KeyType=RANGE --local-secondary-indexes 'IndexName=cityIndex,KeySchema=[{AttributeName=country,KeyType=HASH},{AttributeName=city,KeyType=RANGE}],Projection={ProjectionType=ALL}' 'IndexName=reasonIndex,KeySchema=[{AttributeName=country,KeyType=HASH},{AttributeName=reason,KeyType=RANGE}],Projection={ProjectionType=ALL}' --billing-mode PAY_PER_REQUEST --endpoint-url http://localhost:8000
+       aws dynamodb create-table --table-name trip --attribute-definitions AttributeName=country,AttributeType=S AttributeName=dateTrip,AttributeType=S AttributeName=city,AttributeType=S AttributeName=reason,AttributeType=S --key-schema AttributeName=country,KeyType=HASH AttributeName=dateTrip,KeyType=RANGE --local-secondary-indexes 'IndexName=cityIndex,KeySchema=[{AttributeName=country,KeyType=HASH},{AttributeName=city,KeyType=RANGE}],Projection={ProjectionType=ALL}' 'IndexName=reasonIndex,KeySchema=[{AttributeName=country,KeyType=HASH},{AttributeName=reason,KeyType=RANGE}],Projection={ProjectionType=ALL}' --billing-mode PAY_PER_REQUEST --endpoint-url http://localhost:8000
    
    Or
      
@@ -103,27 +103,6 @@ If the table already exist, you can delete:
  
  OBS:  If you already have the container locally (in your case the java8), then you can use --skip-pull-image to remove the download
 
-
-7. Urls
-
-  - Create a trip
-      POST -> http://localhost:3000/trip/
-            
-            Body :
-            
-                    {
-                      "country": "brasil",
-                      "date": "2020-12-01T00:0045Z",
-                      "city": "osasco",
-                      "reason": "false"
-                     }
-      
-  - Get a country
-      GET -> http://localhost:3000/trip/country/{nameofCountry}
-      
-  - Find by city
-  
-      GET -> http://localhost:3000/trip/country/{country}/{city}
 
 ### cURL
   - POST
