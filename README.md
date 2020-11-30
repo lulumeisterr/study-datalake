@@ -75,13 +75,9 @@ mvn install
 
 ```docker run -p 8000:8000 -v $(pwd)/local/dynamodb:/data/ amazon/dynamodb-local -jar DynamoDBLocal.jar -sharedDb -dbPath /data```
 
-1. Set permissions for DynamoDB Local in a Docker container. `chmod 777 -R $(pwd)/local/dynamodb`
+1.1 Set permissions for DynamoDB Local in a Docker container. `chmod 777 -R $(pwd)/local/dynamodb`
 
-1. - Use this command to list the table
-      
-            aws dynamodb list-tables --endpoint-url http://localhost:8000
-
-1. Create the DynamoDB table.
+1.2 Create the DynamoDB table.
 
    Documentation: https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_CreateTable.html
       
@@ -98,10 +94,15 @@ mvn install
     - past file dbDynamo.json and run
                   
       
-If the table already exist, you can delete: 
+1.3 If the table already exist, you can delete: 
       `aws dynamodb delete-table --table-name trip --endpoint-url http://localhost:8000`
+ 
 
-5. Start the SAM local API.
+1.4 Use this command to list the table
+            
+       `aws dynamodb list-tables --endpoint-url http://localhost:8000`
+
+2. Start the SAM local API.
  - On a Mac: `sam local start-api --env-vars src/test/resources/test_environment_mac.json`
  - On Windows: `sam local start-api --env-vars src/test/resources/test_environment_windows.json`
  - On Linux: `sam local start-api --env-vars src/test/resources/test_environment_linux.json`
