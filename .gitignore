@@ -5,3 +5,7 @@
 .settings/
 .aws-sam/
 *.log
+
+.idea/
+
+*.iml

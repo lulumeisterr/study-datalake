@@ -124,27 +124,26 @@ Firstly, we need a `S3 bucket` where we can upload our Lambda functions packaged
 deploy anything - If you don't have a S3 bucket to store code artifacts then this is a good time to
 create one:
 
-```bash
-export BUCKET_NAME=bucket_trip
+```shell script
+export BUCKET_NAME=bucket-trip
 aws s3 mb s3://$BUCKET_NAME
 ```
 On Windows
-```bash
-set BUCKET_NAME=bucket_trip
+```shell script
+set BUCKET_NAME=bucket-trip
 aws s3 mb s3://%BUCKET_NAME%
 ```
 
 Next, run the following command to package our Lambda function to S3:
 
-```bash
+```shell script
 sam package --template-file template.yaml --output-template-file packaged.yaml --s3-bucket $BUCKET_NAME
 ```
 
 Next, the following command will create a Cloudformation Stack and deploy your SAM resources.
 
-```bash
-sam deploy \
-    --template-file packaged.yaml \
+```shell script
+sam deploy --template-file packaged.yaml \
     --stack-name trip-datalake \
     --capabilities CAPABILITY_IAM
 ```
@@ -153,7 +152,7 @@ sam deploy \
 
 After deployment is complete you can run the following command to retrieve the API Gateway Endpoint URL:
 
-```bash
+```shell script
 aws cloudformation describe-stacks \
     --stack-name trip-datalake \
     --query 'Stacks[].Outputs'
@@ -165,18 +164,46 @@ aws cloudformation describe-stacks \
 
 AWS CLI commands to package, deploy and describe outputs defined within the cloudformation stack:
 
-```bash
-sam package \
+*Remember to set your credentials (~/.aws/credentials)*
+
+* Windows:
+```shell script
+set BUCKET_NAME=bucket_trip
+set STACK_NAME=trip-datalake
+
+aws s3 mb s3://$BUCKET_NAME
+
+sam package ^
+    --template-file template.yaml ^
+    --output-template-file packaged.yaml ^
+    --s3-bucket %BUCKET_NAME%
+
+sam deploy ^
+    --template-file packaged.yaml ^
+    --stack-name %STACK_NAME% ^
+    --capabilities CAPABILITY_IAM
+
+aws cloudformation describe-stacks ^
+    --stack-name %STACK_NAME% --query 'Stacks[].Outputs'
+
+```
+* Linux/Mac:
+````shell script
+export BUCKET_NAME=bucket_trip
+export STACK_NAME=trip-datalake
+
+aws s3 mb s3://$BUCKET_NAME
+
+sam package ^
     --template-file template.yaml \
     --output-template-file packaged.yaml \
-    --s3-bucket REPLACE_THIS_WITH_YOUR_S3_BUCKET_NAME
+    --s3-bucket $BUCKET_NAME
 
 sam deploy \
     --template-file packaged.yaml \
-    --stack-name sam-orderHandler \
-    --capabilities CAPABILITY_IAM \
-    --parameter-overrides MyParameterSample=MySampleValue
+    --stack-name $STACK_NAME \
+    --capabilities CAPABILITY_IAM
 
 aws cloudformation describe-stacks \
-    --stack-name sam-orderHandler --query 'Stacks[].Outputs'
+    --stack-name $STACK_NAME --query 'Stacks[].Outputs'
 ```
