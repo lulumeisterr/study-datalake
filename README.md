@@ -59,7 +59,7 @@ instructions for running an API locally and also on AWS.
 We use `maven` to install our dependencies and package our application into a JAR file:
 
 ```bash
-mvn install
+mvn clean install
 ```
 
 ### Local development
@@ -125,12 +125,12 @@ deploy anything - If you don't have a S3 bucket to store code artifacts then thi
 create one:
 
 ```shell script
-export BUCKET_NAME=bucket-trip
+export BUCKET_NAME=trip-bucket
 aws s3 mb s3://$BUCKET_NAME
 ```
 On Windows
 ```shell script
-set BUCKET_NAME=bucket-trip
+set BUCKET_NAME=trip-bucket
 aws s3 mb s3://%BUCKET_NAME%
 ```
 
@@ -168,7 +168,7 @@ AWS CLI commands to package, deploy and describe outputs defined within the clou
 
 * Windows:
 ```shell script
-set BUCKET_NAME=bucket_trip
+set BUCKET_NAME=trip-bucket
 set STACK_NAME=trip-datalake
 
 aws s3 mb s3://$BUCKET_NAME
@@ -180,8 +180,8 @@ sam package ^
 
 sam deploy ^
     --template-file packaged.yaml ^
-    --stack-name %STACK_NAME% ^
-    --capabilities CAPABILITY_IAM
+    --capabilities CAPABILITY_IAM ^
+    --stack-name %STACK_NAME%
 
 aws cloudformation describe-stacks ^
     --stack-name %STACK_NAME% --query 'Stacks[].Outputs'
@@ -197,13 +197,13 @@ aws s3 mb s3://$BUCKET_NAME
 sam package ^
     --template-file template.yaml \
     --output-template-file packaged.yaml \
-    --s3-bucket $BUCKET_NAME
+    --s3-bucket trip-bucket
 
 sam deploy \
     --template-file packaged.yaml \
-    --stack-name $STACK_NAME \
-    --capabilities CAPABILITY_IAM
+    --capabilities CAPABILITY_IAM \
+    --stack-name trip-datalake
 
 aws cloudformation describe-stacks \
-    --stack-name $STACK_NAME --query 'Stacks[].Outputs'
+    --stack-name trip-datalake --query 'Stacks[].Outputs'
 ```

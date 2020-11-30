@@ -16,7 +16,7 @@ Resources:
   CreateTripRecordFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: s3://bucket-trip/ecf33c27e0cabd6271b921bf201b041c
+      CodeUri: s3://bucket-trip/dc2ab4825c7216215c857d00f74ae747
       Handler: br.com.iwe.handler.CreateTripRecord::handleRequest
       Runtime: java8
       Policies:
@@ -32,7 +32,7 @@ Resources:
   GetTripsByCountryFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: s3://bucket-trip/ecf33c27e0cabd6271b921bf201b041c
+      CodeUri: s3://bucket-trip/dc2ab4825c7216215c857d00f74ae747
       Handler: br.com.iwe.handler.GetTripsByCountry::handleRequest
       Runtime: java8
       Policies:
@@ -48,7 +48,7 @@ Resources:
   GetTripsByPeriodFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: s3://bucket-trip/ecf33c27e0cabd6271b921bf201b041c
+      CodeUri: s3://bucket-trip/dc2ab4825c7216215c857d00f74ae747
       Handler: br.com.iwe.handler.GetTripsByPeriod::handleRequest
       Runtime: java8
       Policies:
@@ -67,7 +67,7 @@ Resources:
   GetByCityFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: s3://bucket-trip/ecf33c27e0cabd6271b921bf201b041c
+      CodeUri: s3://bucket-trip/dc2ab4825c7216215c857d00f74ae747
       Handler: br.com.iwe.handler.GetTripsByCity::handleRequest
       Runtime: java8
       Policies:
@@ -126,19 +126,19 @@ Outputs:
       - CreateTripRecordFunction
       - Arn
   GetByCityFunction:
-    Description: GetTripsByCity Lambda Function ARN
+    Description: GetByCityFunction Lambda Function ARN
     Value:
       Fn::GetAtt:
       - GetByCityFunction
       - Arn
   GetTripsByCountryFunction:
-    Description: GetTripsByCountry Lambda Function ARN
+    Description: GetTripsByCountryFunction Lambda Function ARN
     Value:
       Fn::GetAtt:
       - GetTripsByCountryFunction
       - Arn
   GetTripsByPeriodFunction:
-    Description: GetTripsByPeriod Lambda Function ARN
+    Description: GetTripsByPeriodFunction Lambda Function ARN
     Value:
       Fn::GetAtt:
       - GetTripsByPeriodFunction
