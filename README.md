@@ -3,6 +3,12 @@
 Develop an API following the best practices in the set of
 principles of REST (State Representation Transfer) architecture.
 
+Java SE 8
+• AWS SAM
+• Amazon API Gateway
+• AWS Lambda
+• Amazon DynamoDB
+
 The travel entity must contain the attributes: Country, City, Date (YYYY / MM / DD) and Reason.
 
 o Create a new trip record:
