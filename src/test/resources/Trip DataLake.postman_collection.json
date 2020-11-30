@@ -1,43 +1,12 @@
 {
 	"info": {
-		"_postman_id": "ef9ef35f-a302-4fa0-b0f0-b15a387362ba",
-		"name": "Study DataLake",
+		"_postman_id": "27beda67-1307-4f22-a980-8989a7153d86",
+		"name": "Trip DataLake",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "findByPeriod",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:3000/study/devops/findByPeriod?starts=2015-02-01&ends=2015-08-09",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"study",
-						"devops",
-						"findByPeriod"
-					],
-					"query": [
-						{
-							"key": "starts",
-							"value": "2015-02-01"
-						},
-						{
-							"key": "ends",
-							"value": "2015-08-09"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "createStudyRecord",
+			"name": "createTripRecord",
 			"request": {
 				"method": "POST",
 				"header": [
@@ -50,43 +19,41 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"topic\": null,\n    \"dateTimeCreation\": null,\n    \"tag\": null,\n    \"url\": null,\n    \"description\": null,\n    \"consumed\": null\n}"
+					"raw": "{\n    \"country\": \"Brasil\",\n    \"dateTrip\": \"2020-12-01T00:0045Z\",\n    \"city\": \"São Sebastião\",\n    \"reason\": \"false\"\n}",
+					"options": {
+						"raw": {}
+					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/study",
-					"protocol": "http",
+					"raw": "{{endpoint}}/",
 					"host": [
-						"localhost"
+						"{{endpoint}}"
 					],
-					"port": "3000",
 					"path": [
-						"study"
+						""
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "findByTag",
+			"name": "findByCountry",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/study/devops/findByTag?tag=codePipeline",
-					"protocol": "http",
+					"raw": "{{endpoint}}/country/:country",
 					"host": [
-						"localhost"
+						"{{endpoint}}"
 					],
-					"port": "3000",
 					"path": [
-						"study",
-						"devops",
-						"findByTag"
+						"country",
+						":country"
 					],
-					"query": [
+					"variable": [
 						{
-							"key": "tag",
-							"value": "codePipeline"
+							"key": "country",
+							"value": "Brasil"
 						}
 					]
 				}
@@ -94,31 +61,105 @@
 			"response": []
 		},
 		{
-			"name": "findByIsConsumed",
+			"name": "findByCity",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{endpoint}}/:country/findByCity?city=São Sebastião",
+					"host": [
+						"{{endpoint}}"
+					],
+					"path": [
+						":country",
+						"findByCity"
+					],
+					"query": [
+						{
+							"key": "city",
+							"value": "São Sebastião"
+						}
+					],
+					"variable": [
+						{
+							"key": "country",
+							"value": "Brasil"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "findByPeriods",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/study/devops/findByIsConsumed?isconsumed=false",
-					"protocol": "http",
+					"raw": "{{endpoint}}/:country/period?start=2020-12-01T00:00000Z&end=2020-12-02T00:0045Z",
 					"host": [
-						"localhost"
+						"{{endpoint}}"
 					],
-					"port": "3000",
 					"path": [
-						"study",
-						"devops",
-						"findByIsConsumed"
+						":country",
+						"period"
 					],
 					"query": [
 						{
-							"key": "isconsumed",
-							"value": "false"
+							"key": "start",
+							"value": "2020-12-01T00:00000Z"
+						},
+						{
+							"key": "end",
+							"value": "2020-12-02T00:0045Z"
+						}
+					],
+					"variable": [
+						{
+							"key": "country",
+							"value": "Brasil"
 						}
 					]
 				}
 			},
 			"response": []
 		}
-	]
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "78f3e3a8-01dd-4c2b-9165-b65a4a4f82e9",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "3c701e43-07e2-4c14-a097-b61c02e7c8a0",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "0a96960b-6518-4812-bd3a-1aebd4e66c19",
+			"key": "endpoint",
+			"value": "http://localhost:3000"
+		}
+	],
+	"protocolProfileBehavior": {}
 }
