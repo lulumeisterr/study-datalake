@@ -87,16 +87,14 @@ mvn install
    Use this command inside the project folder:
 
          aws dynamodb create-table --cli-input-json file://dbDynamo.json --endpoint-url http://localhost:8000
-
-5. If You want to create the table using the (http://localhost:8000/shell/#)
       
-      - past file dbDynamo.json and run
+    - past file dbDynamo.json and run
                   
       
 If the table already exist, you can delete: 
       `aws dynamodb delete-table --table-name trip --endpoint-url http://localhost:8000`
 
-6. Start the SAM local API.
+5. Start the SAM local API.
  - On a Mac: `sam local start-api --env-vars src/test/resources/test_environment_mac.json`
  - On Windows: `sam local start-api --env-vars src/test/resources/test_environment_windows.json`
  - On Linux: `sam local start-api --env-vars src/test/resources/test_environment_linux.json`
