@@ -16,7 +16,7 @@ Resources:
   CreateTripRecordFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: target/study-datalake-1.0.0-SNAPSHOT-jar-with-dependencies.jar
+      CodeUri: target/trip-datalake-1.0.0-SNAPSHOT-jar-with-dependencies.jar
       Handler: br.com.iwe.handler.CreateTripRecord::handleRequest
       Runtime: java8
       Policies:
@@ -32,7 +32,7 @@ Resources:
   GetTripsByCountryFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: target/study-datalake-1.0.0-SNAPSHOT-jar-with-dependencies.jar
+      CodeUri: target/trip-datalake-1.0.0-SNAPSHOT-jar-with-dependencies.jar
       Handler: br.com.iwe.handler.GetTripsByCountry::handleRequest
       Runtime: java8
       Policies:
@@ -48,7 +48,7 @@ Resources:
   GetTripsByPeriodFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: target/study-datalake-1.0.0-SNAPSHOT-jar-with-dependencies.jar
+      CodeUri: target/trip-datalake-1.0.0-SNAPSHOT-jar-with-dependencies.jar
       Handler: br.com.iwe.handler.GetTripsByPeriod::handleRequest
       Runtime: java8
       Policies:
@@ -67,7 +67,7 @@ Resources:
   GetByCityFunction:
       Type: AWS::Serverless::Function
       Properties:
-        CodeUri: target/study-datalake-1.0.0-SNAPSHOT-jar-with-dependencies.jar
+        CodeUri: target/trip-datalake-1.0.0-SNAPSHOT-jar-with-dependencies.jar
         Handler: br.com.iwe.handler.GetTripsByCity::handleRequest
         Runtime: java8
         Policies:
@@ -126,13 +126,13 @@ Outputs:
     Value: !GetAtt CreateTripRecordFunction.Arn
 
   GetByCityFunction:
-    Description: "GetTripsByCity Lambda Function ARN"
+    Description: "GetByCityFunction Lambda Function ARN"
     Value: !GetAtt GetByCityFunction.Arn
 
   GetTripsByCountryFunction:
-    Description: "GetTripsByCountry Lambda Function ARN"
+    Description: "GetTripsByCountryFunction Lambda Function ARN"
     Value: !GetAtt GetTripsByCountryFunction.Arn
 
   GetTripsByPeriodFunction:
-    Description: "GetTripsByPeriod Lambda Function ARN"
+    Description: "GetTripsByPeriodFunction Lambda Function ARN"
     Value: !GetAtt GetTripsByPeriodFunction.Arn
