@@ -3,8 +3,8 @@
 Develop an API following the best practices in the set of
 principles of REST (State Representation Transfer) architecture.
 
-Stack:
-      Java SE 8
+Stack Java SE 8:
+
       • AWS SAM
       • Amazon API Gateway
       • AWS Lambda
