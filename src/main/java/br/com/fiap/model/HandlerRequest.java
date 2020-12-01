@@ -1,4 +1,4 @@
-package br.com.iwe.model;
+package br.com.fiap.model;
 
 import java.util.Map;
 

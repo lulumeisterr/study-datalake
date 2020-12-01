@@ -1,4 +1,4 @@
-package br.com.iwe.model;
+package br.com.fiap.model;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.*;
 

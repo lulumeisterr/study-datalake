@@ -1,6 +1,6 @@
-package br.com.iwe.dao;
+package br.com.fiap.dao;
 
-import br.com.iwe.model.Trip;
+import br.com.fiap.model.Trip;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMappingException;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;

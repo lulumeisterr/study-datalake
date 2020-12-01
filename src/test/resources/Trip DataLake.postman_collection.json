@@ -6,7 +6,7 @@
 	},
 	"item": [
 		{
-			"name": "createTripRecord",
+			"name": "createTripsRecord",
 			"request": {
 				"method": "POST",
 				"header": [
@@ -37,12 +37,12 @@
 			"response": []
 		},
 		{
-			"name": "findByCountry",
+			"name": "getTripsByCountry",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{endpoint}}/country/:country",
+					"raw": "{{endpoint}}/:country",
 					"host": [
 						"{{endpoint}}"
 					],
@@ -61,7 +61,7 @@
 			"response": []
 		},
 		{
-			"name": "findByCity",
+			"name": "getTripsByCountryAndCity",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -98,7 +98,7 @@
 			"response": []
 		},
 		{
-			"name": "findByPeriods",
+			"name": "getTripsByCountryAndPeriods",
 			"request": {
 				"method": "GET",
 				"header": [],

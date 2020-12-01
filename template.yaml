@@ -13,11 +13,11 @@ Globals:
 
 Resources:
 
-  CreateTripRecordFunction:
+  CreateTripsRecordFunction:
     Type: AWS::Serverless::Function
     Properties:
       CodeUri: target/trip-datalake-1.0.0-SNAPSHOT-jar-with-dependencies.jar
-      Handler: br.com.iwe.handler.CreateTripRecord::handleRequest
+      Handler: br.com.fiap.handler.CreateTripsRecord::handleRequest
       Runtime: java8
       Policies:
         - DynamoDBCrudPolicy:
@@ -26,14 +26,14 @@ Resources:
         CreateTripRecord:
           Type: Api
           Properties:
-            Path: /trip
+            Path: /trips
             Method: post
 
   GetTripsByCountryFunction:
     Type: AWS::Serverless::Function
     Properties:
       CodeUri: target/trip-datalake-1.0.0-SNAPSHOT-jar-with-dependencies.jar
-      Handler: br.com.iwe.handler.GetTripsByCountry::handleRequest
+      Handler: br.com.fiap.handler.GetTripsByCountry::handleRequest
       Runtime: java8
       Policies:
         - DynamoDBCrudPolicy:
@@ -42,14 +42,14 @@ Resources:
         GetTripsByCountry:
           Type: Api
           Properties:
-            Path: /trip/country/{country}
+            Path: /trips/{country}
             Method: get
 
   GetTripsByPeriodFunction:
     Type: AWS::Serverless::Function
     Properties:
       CodeUri: target/trip-datalake-1.0.0-SNAPSHOT-jar-with-dependencies.jar
-      Handler: br.com.iwe.handler.GetTripsByPeriod::handleRequest
+      Handler: br.com.fiap.handler.GetTripsByPeriod::handleRequest
       Runtime: java8
       Policies:
         - DynamoDBCrudPolicy:
@@ -58,17 +58,17 @@ Resources:
         GetTripsByPeriod:
           Type: Api
           Properties:
-            Path: /trip/{country}/period
+            Path: /trips/{country}/period
             Method: get
             RequestParameters:
               - method.request.querystring.start
               - method.request.querystring.end
 
-  GetByCityFunction:
+  GetTripsByCityFunction:
       Type: AWS::Serverless::Function
       Properties:
         CodeUri: target/trip-datalake-1.0.0-SNAPSHOT-jar-with-dependencies.jar
-        Handler: br.com.iwe.handler.GetTripsByCity::handleRequest
+        Handler: br.com.fiap.handler.GetTripsByCity::handleRequest
         Runtime: java8
         Policies:
           - DynamoDBCrudPolicy:
@@ -77,7 +77,7 @@ Resources:
           CreateTripRecord:
             Type: Api
             Properties:
-              Path: /trip/{country}/findByCity
+              Path: /trips/{country}/findByCity
               Method: get
               RequestParameters:
                 - method.request.querystring.city
@@ -121,13 +121,13 @@ Resources:
 
 Outputs:
 
-  CreateTripRecordFunction:
-    Description: "CreateTripRecord Lambda Function ARN"
-    Value: !GetAtt CreateTripRecordFunction.Arn
+  CreateTripsRecordFunction:
+    Description: "CreateTripsRecord Lambda Function ARN"
+    Value: !GetAtt CreateTripsRecordFunction.Arn
 
-  GetByCityFunction:
-    Description: "GetByCityFunction Lambda Function ARN"
-    Value: !GetAtt GetByCityFunction.Arn
+  GetTripsByCityFunction:
+    Description: "GetTripsByCityFunction Lambda Function ARN"
+    Value: !GetAtt GetTripsByCityFunction.Arn
 
   GetTripsByCountryFunction:
     Description: "GetTripsByCountryFunction Lambda Function ARN"

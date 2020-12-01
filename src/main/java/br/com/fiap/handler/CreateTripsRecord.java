@@ -1,9 +1,9 @@
-package br.com.iwe.handler;
+package br.com.fiap.handler;
 
-import br.com.iwe.dao.TripRepository;
-import br.com.iwe.model.HandlerRequest;
-import br.com.iwe.model.HandlerResponse;
-import br.com.iwe.model.Trip;
+import br.com.fiap.dao.TripRepository;
+import br.com.fiap.model.HandlerRequest;
+import br.com.fiap.model.HandlerResponse;
+import br.com.fiap.model.Trip;
 import com.amazonaws.services.dynamodbv2.model.ResourceNotFoundException;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
@@ -11,14 +11,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 
-public class CreateTripRecord implements RequestHandler<HandlerRequest, HandlerResponse> {
+public class CreateTripsRecord implements RequestHandler<HandlerRequest, HandlerResponse> {
 
 	private final TripRepository repository = new TripRepository();
 
 	@Override
 	public HandlerResponse handleRequest(final HandlerRequest request, final Context context) {
 		Trip trip = null;
-		System.out.println(CreateTripRecord.class.getName() + ": handling request {{ " + request.getBody() + " }}");
+		System.out.println(CreateTripsRecord.class.getName() + ": handling request {{ " + request.getBody() + " }}");
 		try {
 			trip = new ObjectMapper().readValue(request.getBody(), Trip.class);
 		} catch (IOException e) {

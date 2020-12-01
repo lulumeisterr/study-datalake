@@ -1,8 +1,8 @@
-package br.com.iwe.handler;
-import br.com.iwe.dao.TripRepository;
-import br.com.iwe.model.HandlerRequest;
-import br.com.iwe.model.HandlerResponse;
-import br.com.iwe.model.Trip;
+package br.com.fiap.handler;
+import br.com.fiap.dao.TripRepository;
+import br.com.fiap.model.HandlerRequest;
+import br.com.fiap.model.HandlerResponse;
+import br.com.fiap.model.Trip;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 
